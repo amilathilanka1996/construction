@@ -13,9 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # -------------------------
-      # Build Vue frontend
-      # -------------------------
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: composer install --no-dev --prefer-dist --optimize-autoloader
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -27,11 +35,11 @@ jobs:
 
       - name: Build frontend
         working-directory: ./frontend
+        env:
+          VITE_APP_BASE_URL: /
+          VITE_API_BASE_URL: https://your-domain.com/app_backend/web/api
         run: npm run build
 
-      # -------------------------
-      # Prepare backend package
-      # -------------------------
       - name: Remove unnecessary backend files
         run: |
           rm -rf backend/.git
@@ -39,9 +47,6 @@ jobs:
           rm -rf backend/tests || true
           rm -rf backend/runtime/cache/* || true
 
-      # -------------------------
-      # Deploy frontend dist
-      # -------------------------
       - name: Deploy frontend to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -52,9 +57,6 @@ jobs:
           server-dir: /public_html/
           dangerous-clean-slate: false
 
-      # -------------------------
-      # Deploy backend
-      # -------------------------
       - name: Deploy backend to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -69,7 +71,6 @@ jobs:
             **/node_modules/**
             **/tests/**
             **/runtime/cache/**
-            **/vendor/bin/**
             **/.env
             **/README.md
           dangerous-clean-slate: false
