@@ -71,7 +71,7 @@ async function submitSignup() {
     <section class="auth-card">
       <div class="tab-row">
         <button :class="['tab-btn', { active: tab === 'login' }]" @click="tab = 'login'">Login</button>
-        <button :class="['tab-btn', { active: tab === 'signup' }]" @click="tab = 'signup'">Sign Up</button>
+        <!-- <button :class="['tab-btn', { active: tab === 'signup' }]" @click="tab = 'signup'">Sign Up</button> -->
       </div>
 
       <p v-if="errorText" class="error-text">{{ errorText }}</p>
