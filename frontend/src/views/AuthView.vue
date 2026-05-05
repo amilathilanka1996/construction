@@ -78,7 +78,7 @@ async function submitSignup() {
 
       <form v-if="tab === 'login'" class="form-grid" @submit.prevent="submitLogin">
         <label>
-          <span>Usernamessssss</span>
+          <span>Usernamesssss</span>
           <input v-model="loginForm.username" type="text" placeholder="Enter username" />
         </label>
         <label>
