@@ -13,13 +13,23 @@ const isCollapsed = ref(false)
 const mobileOpen = ref(false)
 const companyLoading = ref(false)
 
-const navItems = computed(() => [
+const mainNavItems = computed(() => [
   { label: 'Dashboard', path: '/dashboard' },
   { label: 'Company', path: '/companies' },
   { label: 'Create Project', path: '/projects/create' },
   { label: 'Manage Project', path: '/projects/manage' },
   { label: 'Tender Deposit Money', path: '/tenders/create' },
 ])
+
+const settingsNavItems = computed(() => {
+  if (authState.user?.role !== 'superadmin') {
+    return []
+  }
+
+  return [
+    { label: 'Manage User', path: '/settings/users' },
+  ]
+})
 
 const themeLabel = computed(() => (themeMode.value === 'dark' ? 'Light Mode' : 'Dark Mode'))
 const companyOptions = computed(() => companyState.companies || [])
@@ -146,10 +156,27 @@ onMounted(loadCompanies)
 
         <nav class="nav-list">
           <RouterLink
-            v-for="item in navItems"
+            v-for="item in mainNavItems"
             :key="item.path"
             :to="item.path"
             :class="['nav-link', { active: isActive(item.path) }]"
+            @click="closeMobileSidebar"
+          >
+            <span class="nav-dot"></span>
+            <span v-show="!isCollapsed || mobileOpen">{{ item.label }}</span>
+          </RouterLink>
+        </nav>
+
+        <div v-if="settingsNavItems.length && (!isCollapsed || mobileOpen)" class="nav-section-title">
+          Settings
+        </div>
+
+        <nav v-if="settingsNavItems.length" class="nav-list settings-nav-list">
+          <RouterLink
+            v-for="item in settingsNavItems"
+            :key="item.path"
+            :to="item.path"
+            :class="['nav-link', 'sub-nav-link', { active: isActive(item.path) }]"
             @click="closeMobileSidebar"
           >
             <span class="nav-dot"></span>

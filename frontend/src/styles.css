@@ -1135,3 +1135,58 @@ body[data-theme='light'] .modal-card {
   gap: 12px;
   margin-top: 20px;
 }
+
+.nav-section-title {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.settings-nav-list {
+  margin-top: 8px;
+}
+
+.sub-nav-link {
+  padding-left: 28px;
+}
+
+.user-entry-card {
+  display: grid;
+  gap: 14px;
+}
+
+.user-entry-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.company-membership-box {
+  display: grid;
+  gap: 12px;
+}
+
+.field-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.company-membership-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.company-membership-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--stroke);
+  background: var(--surface);
+}

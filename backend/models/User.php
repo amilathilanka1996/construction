@@ -36,8 +36,11 @@ class User extends ActiveRecord implements IdentityInterface
             'username',
             'email',
             'role',
+            'status',
             'company_id' => fn () => $this->getAttribute('company_id'),
             'company_name' => fn () => $this->company ? $this->company->name : null,
+            'company_ids' => fn () => $this->getCompanies()->select('companies.id')->column(),
+            'company_names' => fn () => $this->getCompanies()->select('companies.name')->column(),
             'created_at',
         ];
     }
