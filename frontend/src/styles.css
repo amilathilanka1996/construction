@@ -1190,3 +1190,14 @@ body[data-theme='light'] .modal-card {
   border: 1px solid var(--stroke);
   background: var(--surface);
 }
+
+.modal-overlay {
+  overflow-y: auto;
+  align-items: flex-start;
+}
+
+.modal-card {
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  margin: auto 0;
+}
